@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">NFCtest</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="ndefactivity">This is a NDEF Activity!</string>
+    <string name="tecactivity">This is a TEC Activity!</string>
+    <string name="tagactivity">This is a TAG Activity!</string>
+
+</resources>
