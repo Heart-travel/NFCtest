@@ -9,8 +9,14 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import android.nfc.tech.NfcA;
 import android.util.Log;
+
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
+
+import android.content.Context;
 import android.content.Intent;
 public class TecActivity extends Activity {
 	
@@ -38,7 +44,11 @@ public class TecActivity extends Activity {
 	        	 nfcatag.connect();
 	             byte[] payload = nfcatag.getAtqa();
 	             String output = new String(payload);
+             	 save(output);
 	             Toast.makeText(TecActivity.this, output, Toast.LENGTH_SHORT).show();
+	             byte[] payloadSak = nfcatag.getAtqa();
+	             String outputSak = new String(payloadSak);
+             	 save(outputSak);
 	         } catch (IOException e) {
 	             Log.e("NFC", "IOException while reading NfcA message...", e);
 	         } finally {
@@ -55,6 +65,27 @@ public class TecActivity extends Activity {
 	    }
 	    //process the msgs array
 	}
+	
+	public void save(String inputText) {
+		FileOutputStream out = null;
+		BufferedWriter writer = null;
+		try {
+			out = openFileOutput("data", Context.MODE_APPEND);
+			writer = new BufferedWriter(new OutputStreamWriter(out));
+			writer.write(inputText);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+		try {
+			if (writer != null) {
+			writer.close();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			}
+		}
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
