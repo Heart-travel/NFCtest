@@ -1,23 +1,21 @@
 package com.example.nfctest;
 
-import android.app.Activity;
-import android.nfc.NfcAdapter;
-import android.nfc.Tag;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
-import android.nfc.tech.NfcA;
-import android.util.Log;
-
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.nio.charset.Charset;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
+import android.nfc.tech.NfcA;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
 public class TecActivity extends Activity {
 	
 	@Override
@@ -44,11 +42,16 @@ public class TecActivity extends Activity {
 	        	 nfcatag.connect();
 	             byte[] payload = nfcatag.getAtqa();
 	             String output = new String(payload);
-             	 save(output);
-	             Toast.makeText(TecActivity.this, output, Toast.LENGTH_SHORT).show();
+             	 /*save(output);
+	             Toast.makeText(TecActivity.this, output, Toast.LENGTH_SHORT).show();*/
+	             TextView textView=(TextView)findViewById(R.id.textView);
+	             textView.setText(output);
+	             
 	             byte[] payloadSak = nfcatag.getAtqa();
 	             String outputSak = new String(payloadSak);
-             	 save(outputSak);
+             	 //save(outputSak);
+	     		 textView=(TextView)findViewById(R.id.textViewSak);
+	    	     textView.setText(outputSak);
 	         } catch (IOException e) {
 	             Log.e("NFC", "IOException while reading NfcA message...", e);
 	         } finally {
